@@ -1,0 +1,37 @@
+
+ 
+ 
+ //testbench code
+ 
+ module myModule_tb(); 
+    wire out;
+    reg clock;
+     
+    always begin     //will keep executing as long as simulation is running
+	#1 clock =!clock;      //creates a clock on "clock" reg
+						// #=delay, #1 = one-time unit delay
+    end
+     
+    initial begin   //only once, usually only used in tests
+	//Initialize clock, important
+	clock = 0;
+     
+	//End simulation
+	#10
+	$finish;   // $ means function in a task, tasks are only for simulator 
+    end
+     
+    myModule notGate(clock, out);    // instance of myModule named notGate
+					//inputs clock, outputs result on "out"
+					// "clock" is connected to port A and out is connected to Port B
+
+endmodule
+
+
+
+//module code
+module myModule(A, B);
+    input wire A;
+    output wire B;
+    assign B = !A;
+endmodule 
